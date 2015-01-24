@@ -1,6 +1,8 @@
 <?php
 
 	session_start();
+	date_default_timezone_set("America/Los_Angeles");
+	include('new_connection.php');
 
 	if(isset($_SESSION['success'])) 
 	{
@@ -13,6 +15,8 @@
 		die();
 	}
 
+	$query = "SELECT * FROM users";
+	$users = fetch_all($query);
 
 ?>
 
@@ -35,5 +39,12 @@
 	<div id="email_log">
 		<p> <?= $_SESSION['email'] ?> </p>
 	</div>
+<?php
+		foreach ($users as $user)
+		{
+			echo "<h3> {$user['first_name']} {$user['created_at']} </h3>";
+		}
+?>
+
 </body>
 </html>
