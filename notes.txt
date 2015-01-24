@@ -1,0 +1,43 @@
+<?php
+	include('new_connection.php');
+	$query = "SELECT * FROM customer";
+	$customer = fetch_all($query);
+	// var_dump($customer);
+?>
+
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<?php
+		foreach ($customer as $person)
+		{
+			echo "<h3> {$person['first_name']} {$person['last_name']} </h3>";
+		}
+	?>
+</body>
+</html>
+
+==================================================
+
+$query = "SELECT * FROM customer";
+$person = fetch_record($query);
+
+	<?php
+			echo "<h3> {$person['first_name']} {$person['last_name']} </h3>";
+	?>
+
+
+==================================================
+
+To sus out errors
+<?php
+	include('new_connection.php');
+	$new_person_query = "INSERT INTO customer (first_name, last_name, created_at, updated_at) VALUES ('Casey', 'Jones', NOW(), NOW())";
+	echo $new_person_query;
+	die();
+
+Run this in your browser then copy / paste this into mySQL workbench
+
+$new_person_query = "INSERT INTO customer (first_name, last_name, created_at, updated_at) VALUES ('Casey', 'Jones', NOW(), NOW())";
