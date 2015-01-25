@@ -1,3 +1,10 @@
+<?php
+	session_start();
+	date_default_timezone_set("America/Los_Angeles");
+	require('new_connection.php');
+?>
+
+
 <html>
 <head>
 	<title>Welcome to the Wall</title>
@@ -22,6 +29,22 @@
 	</style>
 </head>
 <body>
+<?php
+	if(isset($_SESSION['errors']))
+	{
+		foreach ($_SESSION['errors'] as $error)
+		{
+			echo "<p class='error'>{$error} </p>";
+		}
+		unset($_SESSION['errors']);
+	}
+
+	if(isset($_SESSION['success_message']))
+	{
+		echo "<p class='success'> {$_SESSION['success_message']} </p>";
+		unset($_SESSION['success_message']);
+	}
+?>
 	<div id="container">
 		<h1>Welcome to the Wall</h1>
 		<h2>A Coding Dojo Message Board</h2>

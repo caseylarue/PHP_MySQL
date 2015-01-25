@@ -1,3 +1,9 @@
+<?php
+	session_start();
+	date_default_timezone_set("America/Los_Angeles");
+	require('new_connection.php');
+?>
+
 <html>
 <head>
 	<title>The Wall</title>
@@ -9,6 +15,9 @@
 			margin: 0px auto;
 		}
 
+		h1 {
+			margin-left: 30px;
+		}
 		#nav {
 			border: 1px solid black;
 			width: 970px;
@@ -61,6 +70,7 @@
 
 		.comment h4 {
 			margin: 5px;
+			font-size: 20px;
 		}
 
 		.comment p {
@@ -74,13 +84,14 @@
 	<div id="container">
 		<div id="nav">
 			<h3>Coding Dojo Wall</h3>
-			<h4>Welcome, MICHAEL</h4>
+			<h4>Welcome, <?= $_SESSION['first_name'] ?></h4>
 			<a href="#">Log off</a>
 		</div>
+		<h1>Type your message here..</h1>
 		<form id='post' action='process.php'  method='post'>
 			<input type='hidden' name='action' value='post'>
 			<textarea rows="10" cols="100"></textarea>
-			<input type='submit' value='post'>
+			<input type='submit' value='post a message'>
 		</form>
 		<div class="message">
 			<h5>MICHAEL CHOI - January 23, 2013</h5>
@@ -100,6 +111,11 @@
 			<h5>GEORGE FORMAN- January 21, 2013</h5>
 			<p>Lorem ipsum dolor sit amet, no possit alterum platonem nam. Vix ne facer putent timeam, et debet probatus eos. Vim eu civibus lobortis concludaturque, ad eam similique consequuntur, an mel eirmod intellegat. Fuisset albucius aliquando an nam. Ius falli eirmod te, quod elitr expetenda ei cum. Usu ut porro novum. Ne mei quidam doctus reformidans, viris possim abhorreant te vel.</p>
 		</div>
+		<form class='comment_post' action='process.php'  method='post'>
+			<input type='hidden' name='action' value='comment_post'>
+			<textarea rows="10" cols="100"></textarea>
+			<input type='submit' value='Post a Comment'>
+		</form>
 	</div>
 </body>
 </html>
