@@ -12,9 +12,15 @@
 
 	if(isset($_POST['action']) && $_POST['action'] == 'login')
 	{
-		login_user($_POST);
-		
+		login_user($_POST);	
 	}
+	else  //malicous attempt, navigation to process.php or someone is trying to log off
+	{
+		session_destroy();
+		header('location: index.php');
+		die();
+	}
+
 
 	/////////////////////////////////////////////////
 
