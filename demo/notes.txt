@@ -41,3 +41,13 @@ To sus out errors
 Run this in your browser then copy / paste this into mySQL workbench
 
 $new_person_query = "INSERT INTO customer (first_name, last_name, created_at, updated_at) VALUES ('Casey', 'Jones', NOW(), NOW())";
+
+==================================================
+
+Forward engineer an ERD from MySQL workbench
+Create an EER diagram, then from the file menu select forward engineer DB.
+Copy SQL command to clip board to create the DB.
+Go back to your localhost and run the script to create the DB.
+Rereash your scripts on the right and you should see the DB you created in ERD!
+
+
