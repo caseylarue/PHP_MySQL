@@ -89,10 +89,23 @@
 		</div>
 		<h1>Type your message here..</h1>
 		<form id='post' action='process.php'  method='post'>
-			<input type='hidden' name='action' value='post'>
-			<textarea rows="10" cols="100"></textarea>
+			<input type='hidden' name='action' value='msg_post'>
+			<textarea rows="10" cols="100" name='message'></textarea>
 			<input type='submit' value='post a message'>
 		</form>
+		
+		<!-- Pull from the db....messages -->
+<?php
+		$query_messages = "SELECT * FROM messages ORDER BY created_at DESC";
+		$messages = fetch_all($query_messages);
+// need to get the name from the users table as well
+		foreach ($messages as $message)
+		{
+			echo "<h3> {$message['message']} </h3>";
+		}
+		// die();
+?>
+
 		<div class="message">
 			<h5>MICHAEL CHOI - January 23, 2013</h5>
 			<p>Lorem ipsum dolor sit amet, no possit alterum platonem nam. Vix ne facer putent timeam, et debet probatus eos. Vim eu civibus lobortis concludaturque, ad eam similique consequuntur, an mel eirmod intellegat. Fuisset albucius aliquando an nam. Ius falli eirmod te, quod elitr expetenda ei cum. Usu ut porro novum. Ne mei quidam doctus reformidans, viris possim abhorreant te vel.</p>

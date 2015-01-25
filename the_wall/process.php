@@ -13,11 +13,15 @@
 		login_user($_POST);
 	}
 
-	///--------Register user begin validation checks
+///------------------------------------------------------
+///--------Register user begin validation checks
+///------------------------------------------------------
 
 	function register_user($post)
 	{
 		$_SESSION['errors'] = array();
+
+
 
 		if(empty($post['first_name']))
 		{
@@ -59,37 +63,75 @@
 
 	}
 
-	///--------login user begin validation checks
+///------------------------------------------------------
+///--------login user begin validation checks
+///------------------------------------------------------
 
 	function login_user($post_login)
 	{
 	
-		// validation checks to see if email and pw is legit
-		
+		$_SESSION['errors'] = array();
 
-		// compare the email entered to the db 
-
-		// if there is an email match, query the db to be sure that the password is a match
-
-		$query_login = "SELECT * FROM users WHERE email = '{$post_login['email']}' ";
-		$person = fetch_record($query_login);
-
-		$password = $person['password'];
-		// echo $_POST['password'];
-
-		if( $password == $post_login['password'])
+		if(empty($post_login['email']))
 		{
-			$_SESSION['first_name'] = $person['first_name'];
-			$_SESSION['last_name'] = $person['last_name'];
-			header('location: wall.php');
-			die();
+			$_SESSION['errors'][] = "you left your email blank";
 		}
-		else
+
+		if(empty($post_login['password']))
+		{
+			$_SESSION['errors'][] = "you left your password blank";
+		}
+
+		if(!filter_var($post_login['email'], FILTER_VALIDATE_EMAIL))
+		{
+			$_SESSION['errors'][] = "please validate email address";
+		}
+
+		if(count($_SESSION['errors']) > 0)
 		{
 			header('location: index.php');
 			die();
 		}
-		
+		else
+		{
+			$query_login = "SELECT * FROM users WHERE email = '{$post_login['email']}' ";
+			$person = fetch_record($query_login);
 
+			$password = $person['password'];
+
+			if( $password == $post_login['password'])
+			{
+				$_SESSION['first_name'] = $person['first_name'];
+				$_SESSION['last_name'] = $person['last_name'];
+				$_SESSION['id'] = $person['id'];
+				header('location: wall.php');
+				die();
+			}
+			else
+			{
+				$_SESSION['errors'][] = "sorry this is an invalid email or password";
+				header('location: index.php');
+				die();
+			}	
+		}
 	}
+
+///------------------------------------------------------
+///--------Handle a Messages posted by users
+///------------------------------------------------------	
+
+	if( isset($_POST['action']) && $_POST['action'] == 'msg_post')
+	{	
+		$message = $_POST['message'];
+		$id = $_SESSION['id'];
+		$new_person_query = "INSERT INTO messages (users_id, message, created_at, updated_at) VALUES ('$id', '$message', NOW(), NOW())";
+		run_mysql_query($new_person_query); 
+		header('location: wall.php');
+		die();
+	}
+
+
+
+
+
 ?>
