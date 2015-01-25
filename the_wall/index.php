@@ -8,7 +8,16 @@
 			height: 600px;
 			background-color: #EEE8AA;
 			padding-left: 50px;
-			padding-top: 50px;
+			padding-top: 30px;
+		}
+		h1, h2, h3, h4 {
+			text-align: center;
+		}
+		form {
+			margin-left: 400px;
+		}
+		form input  {
+			margin: 5px;
 		}
 	</style>
 </head>
