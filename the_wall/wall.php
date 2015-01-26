@@ -129,13 +129,12 @@
 			ORDER BY comments.created_at DESC";
 
 			$comments = fetch_record($query_comments);
-			echo "<pre>";
-			var_dump($comments);
-			echo "<pre>";
 
+			echo "<p> Comment:  </p>";
+			echo "<p> {$comments['first_name']} {$comments['last_name']} {$comments['comment_date']}</p>";
+			echo "<p> {$comments['comment']} </p>";
 		}
 ?>
-
 
 	</div>
 </body>
