@@ -96,39 +96,36 @@
 		
 		<!-- Pull from the db....messages -->
 <?php
-		$query_messages = "SELECT * FROM messages ORDER BY created_at DESC";
+		$query_messages = "SELECT messages.message, messages.created_at, messages.id as msg_id, users.first_name, users.last_name, users.id FROM messages LEFT JOIN users ON messages.users_id = users.id ORDER BY messages.created_at DESC";
 		$messages = fetch_all($query_messages);
 // need to get the name from the users table as well
 		foreach ($messages as $message)
-		{
-			echo "<h3> {$message['message']} </h3>";
-		}
-		// die();
+		{	
+			// $msg_id = $message['msg_id'];
+			$_SESSION['msg_id'] = $message['msg_id'];
+			$msg_id = $_SESSION['msg_id'];
+
+			$first_name = $message['first_name'];
+			$last_name = $message['last_name'];
+			$created_at = $message['created_at'];
+			$message = $message['message'];
+
+
+			echo "<h3> $first_name  $created_at </h3>";
+			echo "<h3> $message </h3>";
+			echo $_SESSION['msg_id'] ;
 ?>
 
-		<div class="message">
-			<h5>MICHAEL CHOI - January 23, 2013</h5>
-			<p>Lorem ipsum dolor sit amet, no possit alterum platonem nam. Vix ne facer putent timeam, et debet probatus eos. Vim eu civibus lobortis concludaturque, ad eam similique consequuntur, an mel eirmod intellegat. Fuisset albucius aliquando an nam. Ius falli eirmod te, quod elitr expetenda ei cum. Usu ut porro novum. Ne mei quidam doctus reformidans, viris possim abhorreant te vel.</p>
-		</div>
-		<div class="comment">
-			<h4>Comment</h4>
-			<h3>BILL CLINTON - January 23, 2013</h5>
-			<p>Lorem ipsum dolor sit amet, no possit alterum platonem nam. Vix ne facer putent timeam, et debet probatus eos. Vim eu civibus lobortis concludaturque, ad eam similique consequuntur, an mel eirmod intellegat. Fuisset albucius aliquando an nam. Ius falli eirmod te, quod elitr expetenda ei cum. Usu ut porro novum. Ne mei quidam doctus reformidans, viris possim abhorreant te vel.</p>
-		</div>	
-		<form class='comment_post' action='process.php'  method='post'>
+			<form class='comment_post' action='process.php'  method='post'>
 			<input type='hidden' name='action' value='comment_post'>
-			<textarea rows="10" cols="100"></textarea>
+			<textarea rows='10'  cols='100' name='comment'> </textarea>
 			<input type='submit' value='Post a Comment'>
-		</form>
-		<div class="message">
-			<h5>GEORGE FORMAN- January 21, 2013</h5>
-			<p>Lorem ipsum dolor sit amet, no possit alterum platonem nam. Vix ne facer putent timeam, et debet probatus eos. Vim eu civibus lobortis concludaturque, ad eam similique consequuntur, an mel eirmod intellegat. Fuisset albucius aliquando an nam. Ius falli eirmod te, quod elitr expetenda ei cum. Usu ut porro novum. Ne mei quidam doctus reformidans, viris possim abhorreant te vel.</p>
-		</div>
-		<form class='comment_post' action='process.php'  method='post'>
-			<input type='hidden' name='action' value='comment_post'>
-			<textarea rows="10" cols="100"></textarea>
-			<input type='submit' value='Post a Comment'>
-		</form>
+			</form>
+<?php
+		}
+?>
+
+
 	</div>
 </body>
 </html>

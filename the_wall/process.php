@@ -130,7 +130,22 @@
 		die();
 	}
 
+	if( isset($_POST['action']) && $_POST['action'] == 'comment_post')
+	{	
+		//users_id
+		$id = $_SESSION['id'];
+		$msg_id = $_SESSION['msg_id'];
+		$comment = $_POST['comment'];
 
+		echo "$id";
+		echo "$msg_id";
+		echo "$comment";
+		// $id = $_SESSION['id'];
+		// $new_person_query = "INSERT INTO comments (users_id, messages_id, comment, created_at, updated_at) VALUES ('$id', '$message', NOW(), NOW())";
+		// run_mysql_query($new_person_query); 
+		// header('location: wall.php');
+		// die();
+	}
 
 
 
