@@ -103,7 +103,7 @@
 		{	
 			// $msg_id = $message['msg_id'];
 			$_SESSION['msg_id'] = $message['msg_id'];
-			$msg_id = $_SESSION['msg_id'];
+			$msg_id = intval($message['msg_id']);
 
 			$first_name = $message['first_name'];
 			$last_name = $message['last_name'];
@@ -115,13 +115,24 @@
 			echo "<h3> $message </h3>";
 			echo $_SESSION['msg_id'] ;
 ?>
-
 			<form class='comment_post' action='process.php'  method='post'>
 			<input type='hidden' name='action' value='comment_post'>
-			<textarea rows='10'  cols='100' name='comment'> </textarea>
+			<input type='hidden' name='msg_id' value='<?= $_SESSION['msg_id'] ?> '>
+			<textarea rows='10'  cols='100' name='comment' name=> </textarea>
 			<input type='submit' value='Post a Comment'>
 			</form>
 <?php
+			$query_comments = "SELECT comments.comment, comments.created_at as comment_date, users.first_name, users.last_name, comments.messages_id
+			FROM comments
+			JOIN users ON users.id = comments.users_id
+			WHERE comments.messages_id = '$msg_id'
+			ORDER BY comments.created_at DESC";
+
+			$comments = fetch_record($query_comments);
+			echo "<pre>";
+			var_dump($comments);
+			echo "<pre>";
+
 		}
 ?>
 
