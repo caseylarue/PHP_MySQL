@@ -84,12 +84,7 @@
 		<div id="nav">
 			<h3>Coding Dojo Wall</h3>
 			<h4>Welcome, <?= $_SESSION['first_name'] ?></h4>
-			<a href="index.php">
-<?php
-			// session_destroy();
-			// header('location: index.php');
-?>
-			Log off</a>
+			<a href="#">Log off</a>
 		</div>
 		<h1>Type your message here..</h1>
 		<form id='post' action='process.php'  method='post'>
