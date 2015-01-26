@@ -42,6 +42,10 @@
 			margin-top: 20px;
 		}
 
+		.msg_post {
+			border: 1px solid gray;
+		}
+
 		#post, .comment_post {
 			margin-top: 40px;
 			margin-left: 100px;
@@ -59,24 +63,10 @@
 			padding-left: 10px;
 		}
 
-		.comment {
-			border: 1px ridge gray;
-			width: 750px;
-			height: 130px;
-			margin: 20px 0px 20px 120px;
-			background-color: #FDF5E6;
-			font-size: 12px;
-		}
 
-		.comment h4 {
-			margin: 5px;
-			font-size: 20px;
-		}
-
-		.comment p {
-			font-size: 12px;
-			padding-left: 10px;
-		}
+		.comment_post textarea {
+			background-color: #FFF8DC;
+		}		
 
 	</style>
 </head>
@@ -108,12 +98,13 @@
 			$last_name = $message['last_name'];
 			$created_at = $message['created_at'];
 			$message = $message['message'];
-
-
-			echo "<h3> $first_name  $created_at </h3>";
-			echo "<h3> $message </h3>";
-			echo $_SESSION['msg_id'] ;
 ?>
+			<div class='msg_post'>
+				<p>Message by:<?= "$first_name" .' '. "$last_name".' '."$created_at" ?></p>
+				<p><?= "$message" ?></p>
+				<p><?= $_SESSION['msg_id'] ?></p>
+			</div>	
+
 			<form class='comment_post' action='process.php'  method='post'>
 			<input type='hidden' name='action' value='comment_post'>
 			<input type='hidden' name='msg_id' value='<?= $_SESSION['msg_id'] ?> '>
