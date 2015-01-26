@@ -11,7 +11,6 @@
 		#container {
 			height: 1200px;
 			width: 970px;
-			background-color: #AFEEEE;
 			margin: 0px auto;
 		}
 
@@ -68,6 +67,16 @@
 			background-color: #FFF8DC;
 		}		
 
+		.comments {
+			border: 1px solid gray;
+		}
+
+		.msg_comment {
+			background-color: #AFEEEE;
+		}
+
+
+
 	</style>
 </head>
 <body>
@@ -77,7 +86,8 @@
 			<h4>Welcome, <?= $_SESSION['first_name'] ?></h4>
 			<a href="index.php">
 <?php
-			session_destroy();
+			// session_destroy();
+			// header('location: index.php');
 ?>
 			Log off</a>
 		</div>
@@ -103,10 +113,11 @@
 			$created_at = $message['created_at'];
 			$message = $message['message'];
 ?>
+		<div class='msg_comment'>	
 			<div class='msg_post'>
-				<p>Message by:<?= "$first_name" .' '. "$last_name".' '."$created_at" ?></p>
 				<p><?= "$message" ?></p>
-				<p><?= $_SESSION['msg_id'] ?></p>
+				<p>Message by:<?= "$first_name" .' '. "$last_name".' '."$created_at" ?></p>
+				<p><?= "ID: " . $_SESSION['msg_id'] ?></p>
 			</div>	
 
 			<form class='comment_post' action='process.php'  method='post'>
@@ -128,29 +139,16 @@
 			{
 				if(intval($comment['messages_id']) == $msg_id)
 				{
-					echo "hey we got a match!";
+					echo "<div class='comments'>";
+					echo "<p>Comment: ".$comment['comment'] ."</p>";
+					echo "<p>". $comment['first_name'].' '. $comment['last_name'] .' '. $comment['comment_date'] . "</p>";
+					echo "</div>";
 				}
-
 			}
-
-			
-				// echo "<pre>";
-				// var_dump($comment);
-				// echo "</pre>";
-
-			
-
-			// echo "<pre>";
-			// var_dump($comments);
-			// echo "</pre>";
-
-			// echo "<p> Comment:  </p>";
-			// echo "<p> {$comments['first_name']} {$comments['last_name']} {$comments['comment_date']}</p>";
-			// echo "<p> {$comments['comment']} </p>";
 		}
 ?>
-
-	</div>
+		</div> <!-- end of msg_comment -->
+	</div>  <!-- container -->
 </body>
 </html>
 
