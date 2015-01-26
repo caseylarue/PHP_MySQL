@@ -13,12 +13,12 @@
 		login_user($_POST);
 	}
 
-	// else (//malicious navigation to process.php or logoff)
-	// {
-	// 	session_destroy();
-	// 	header('location: index.php');
-	// 	die();
-	// }
+	if ( isset($_POST['action']) && $_POST['action'] == 'log_out')
+	 {
+		session_destroy();
+		header('location: index.php');
+		die();
+	}
 
 ///------------------------------------------------------
 ///--------Register user begin validation checks
