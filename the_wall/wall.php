@@ -101,7 +101,6 @@
 // need to get the name from the users table as well
 		foreach ($messages as $message)
 		{	
-			// $msg_id = $message['msg_id'];
 			$_SESSION['msg_id'] = $message['msg_id'];
 			$msg_id = intval($message['msg_id']);
 
@@ -118,21 +117,41 @@
 			<form class='comment_post' action='process.php'  method='post'>
 			<input type='hidden' name='action' value='comment_post'>
 			<input type='hidden' name='msg_id' value='<?= $_SESSION['msg_id'] ?> '>
-			<textarea rows='10'  cols='100' name='comment' name=> </textarea>
+			<textarea rows='5'  cols='100' name='comment' name=> </textarea>
 			<input type='submit' value='Post a Comment'>
 			</form>
 <?php
+			
 			$query_comments = "SELECT comments.comment, comments.created_at as comment_date, users.first_name, users.last_name, comments.messages_id
 			FROM comments
 			JOIN users ON users.id = comments.users_id
-			WHERE comments.messages_id = '$msg_id'
 			ORDER BY comments.created_at DESC";
+			$comments = fetch_all($query_comments);
 
-			$comments = fetch_record($query_comments);
+			foreach($comments as $comment)
 
-			echo "<p> Comment:  </p>";
-			echo "<p> {$comments['first_name']} {$comments['last_name']} {$comments['comment_date']}</p>";
-			echo "<p> {$comments['comment']} </p>";
+			{
+				if(intval($comment['messages_id']) == $msg_id)
+				{
+					echo "hey we got a match!";
+				}
+
+			}
+
+			
+				// echo "<pre>";
+				// var_dump($comment);
+				// echo "</pre>";
+
+			
+
+			// echo "<pre>";
+			// var_dump($comments);
+			// echo "</pre>";
+
+			// echo "<p> Comment:  </p>";
+			// echo "<p> {$comments['first_name']} {$comments['last_name']} {$comments['comment_date']}</p>";
+			// echo "<p> {$comments['comment']} </p>";
 		}
 ?>
 
