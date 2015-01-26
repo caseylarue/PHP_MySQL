@@ -57,14 +57,14 @@
 			Email: <input type='text' name='email'><br>
 			Password: <input type='password' name='password'><br>
 			Confirm Password: <input type='password' name='confirm_password'><br>
-			<input type='submit' value='register'>
+			<input type='submit' value='Register'>
 		</form>
 		<h2>Login</h2>
 		<form action='process.php' method='post'>
 			<input type='hidden' name='action' value='login'>
 			Email: <input type='text'name='email'><br>
 			Password: <input type='password'name='password'><br>
-			<input type='submit' value='register'>
+			<input type='submit' value='Login'>
 		</form>
 	</div>	
 </body>

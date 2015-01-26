@@ -56,9 +56,13 @@
 						VALUES ('{$post['first_name']}', '{$post['last_name']}', '{$post['password']}', '{$post['email']}', NOW(), NOW())";
 
 			run_mysql_query($query);
-			$_SESSION['success_message'] = 'User successfully created!';
-			header('location: index.php');
-			die();	
+			$query_registration = "SELECT * FROM users WHERE email = '{$post['email']}' ";
+			$person = fetch_record($query_registration);
+			$_SESSION['first_name'] = $person['first_name'];
+			$_SESSION['last_name'] = $person['last_name'];
+			$_SESSION['id'] = $person['id'];
+			header('location: wall.php');
+			die();
 		}
 
 	}
