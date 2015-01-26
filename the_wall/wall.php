@@ -23,7 +23,7 @@
 			height: 80px;
 		}
 
-		div#nav h3, h4, a {
+		div#nav h3, h4, form {
 			display: inline-block;
 			vertical-align: top;
 		}
@@ -36,7 +36,7 @@
 			margin-left: 200px;
 		}
 
-		div#nav a {
+		div#nav form {
 			margin-left: 200px;
 			margin-top: 20px;
 		}
@@ -45,7 +45,7 @@
 			border: 1px solid gray;
 		}
 
-		#post, .comment_post {
+		#post {
 			margin-top: 40px;
 			margin-left: 100px;
 		}
@@ -62,6 +62,10 @@
 			padding-left: 10px;
 		}
 
+		.comment_post {
+			margin-top: 10px;
+			margin-left: 100px;
+		}
 
 		.comment_post textarea {
 			background-color: #FFF8DC;
@@ -69,6 +73,12 @@
 
 		.comments {
 			border: 1px solid gray;
+			margin-left: 30px;
+			background-color: #00BFFF;
+		}
+
+		.comments p {
+			margin-left: 10px;
 		}
 
 		.msg_comment {
@@ -118,12 +128,6 @@
 				<p><?= "ID: " . $_SESSION['msg_id'] ?></p>
 			</div>	
 
-			<form class='comment_post' action='process.php'  method='post'>
-			<input type='hidden' name='action' value='comment_post'>
-			<input type='hidden' name='msg_id' value='<?= $_SESSION['msg_id'] ?> '>
-			<textarea rows='5'  cols='100' name='comment' name=> </textarea>
-			<input type='submit' value='Post a Comment'>
-			</form>
 <?php
 			
 			$query_comments = "SELECT comments.comment, comments.created_at as comment_date, users.first_name, users.last_name, comments.messages_id
@@ -143,6 +147,14 @@
 					echo "</div>";
 				}
 			}
+?>
+			<form class='comment_post' action='process.php'  method='post'>
+			<input type='hidden' name='action' value='comment_post'>
+			<input type='hidden' name='msg_id' value='<?= $_SESSION['msg_id'] ?> '>
+			<textarea rows='5'  cols='100' name='comment' name=> </textarea>
+			<input type='submit' value='Post a Comment'>
+			</form>
+<?php
 		}
 ?>
 		</div> <!-- end of msg_comment -->
