@@ -91,6 +91,9 @@
 </head>
 <body>
 	<div id="container">
+<?php
+	var_dump($_SESSION);
+?>
 		<div id="nav">
 			<h3>Coding Dojo Wall</h3>
 			<h4>Welcome, <?= $_SESSION['first_name'] ?></h4>
@@ -108,17 +111,20 @@
 		
 		<!-- Pull from the db....messages -->
 <?php
-		$query_messages = "SELECT messages.message, messages.created_at, messages.id as msg_id, users.first_name, users.last_name, users.id FROM messages LEFT JOIN users ON messages.users_id = users.id ORDER BY messages.created_at DESC";
+		$query_messages = "SELECT messages.message, messages.created_at, messages.id as msg_id, users.first_name, users.last_name, users.id as user_id FROM messages LEFT JOIN users ON messages.users_id = users.id ORDER BY messages.created_at DESC";
 		$messages = fetch_all($query_messages);
-// need to get the name from the users table as well
+
+
 		foreach ($messages as $message)
 		{	
+			var_dump($message);
 			$_SESSION['msg_id'] = $message['msg_id'];
 			$msg_id = intval($message['msg_id']);
 
 			$first_name = $message['first_name'];
 			$last_name = $message['last_name'];
 			$created_at = $message['created_at'];
+			$user_id = $message['user_id'];
 			$message = $message['message'];
 ?>
 		<div class='msg_comment'>	
@@ -126,14 +132,28 @@
 				<p><?= "$message" ?></p>
 				<p>Message by:<?= "$first_name" .' '. "$last_name".' '."$created_at" ?></p>
 				<p><?= "ID: " . $_SESSION['msg_id'] ?></p>
-			</div>	
+<?php
+		if($_SESSION['id'] === $user_id)
+		{
+			echo $_SESSION['msg_id'];
+?>		
+
+<!-- 			<form class='delete_msg' action='process.php'  method='post'>
+				<input type='hidden' name='action' value='delete_msg'>
+				<input type='hidden' name='msg_id' value='<?= $_SESSION['msg_id'] ?>'>
+				<input type='submit' value='Delete Message'>
+			</form> -->
+<?php
+		}
+?>
+		</div>	
 
 <?php
 			
 			$query_comments = "SELECT comments.comment, comments.created_at as comment_date, users.first_name, users.last_name, comments.messages_id
 			FROM comments
 			JOIN users ON users.id = comments.users_id
-			ORDER BY comments.created_at DESC";
+			ORDER BY comments.created_at";
 			$comments = fetch_all($query_comments);
 
 			foreach($comments as $comment)

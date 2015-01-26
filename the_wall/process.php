@@ -59,6 +59,7 @@
 		}
 		else
 		{
+			
 			$query = "INSERT INTO users (first_name, last_name, password, email, created_at, updated_at)
 						VALUES ('{$post['first_name']}', '{$post['last_name']}', '{$post['password']}', '{$post['email']}', NOW(), NOW())";
 
@@ -157,6 +158,19 @@
 		die();
 	}
 
+///------------------------------------------------------
+///--------Delete message by users
+///------------------------------------------------------	
+
+	if( isset($_POST['action']) && $_POST['action'] == 'delete_msg')
+	{		
+	    $msg_id = $_POST['msg_id'];
+		$del_msg_query = "DELETE FROM `the_wall`.`messages` WHERE `id`='$msg_id'";
+		echo $del_msg_query;
+		// run_mysql_query($del_msg_query); 
+		// header('location: wall.php');
+		// die();
+	}
 
 
 ?>
