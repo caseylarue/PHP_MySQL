@@ -91,9 +91,6 @@
 </head>
 <body>
 	<div id="container">
-<?php
-	var_dump($_SESSION);
-?>
 		<div id="nav">
 			<h3>Coding Dojo Wall</h3>
 			<h4>Welcome, <?= $_SESSION['first_name'] ?></h4>
@@ -117,7 +114,6 @@
 
 		foreach ($messages as $message)
 		{	
-			var_dump($message);
 			$_SESSION['msg_id'] = $message['msg_id'];
 			$msg_id = intval($message['msg_id']);
 

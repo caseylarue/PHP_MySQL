@@ -59,7 +59,22 @@
 		}
 		else
 		{
-			
+			// attempt to get secure login
+			// function insert_new_user($first_name, $last_name, $email, $password)
+			// {
+			// 	$date = date("Y-m-d H:i:s");
+			// 	$esc_first_name = escape_this_string($first_name);
+			// 	$esc_last_name = escape_this_string($last_name);
+			// 	$esc_email = escape_this_string($email);
+			// 	$esc_password = escape_this_string($password);			
+			// 	$query = "INSERT INTO users (first_name, last_name, email, password, created_at, updated_at)
+			// 			VALUES ('{$esc_first_name}', '{$esc_last_name}', '{$esc_email}', '{$esc_password}', '$date', '$date')";
+			// 	echo $query;
+			// 	run_mysql_query($query);
+			// }
+			// insert_new_user($post['first_name'], $post['last_name'], $post['email'], $post['password']);
+
+
 			$query = "INSERT INTO users (first_name, last_name, password, email, created_at, updated_at)
 						VALUES ('{$post['first_name']}', '{$post['last_name']}', '{$post['password']}', '{$post['email']}', NOW(), NOW())";
 
